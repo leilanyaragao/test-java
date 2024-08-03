@@ -14,13 +14,25 @@ import java.util.List;
 @Service
 public class ProductService {
 
+    public Product addWarehouse(Integer sku, Warehouse warehouse) {
+        Product productBySku = productRepository.findProductBySku(sku);
+
+        if(productBySku == null){
+            throw new ProductNotFoundException("The product with sku " + sku + " not found.");
+        }
+
+        productBySku.addWarehouse(warehouse);
+
+        return productRepository.save(productBySku);
+    }
+
     public Product createProduct(Product product) {
         if(productRepository.findProductBySku(product.getSku()) != null ){
             throw new ProductAlreadyExistsException("The product with sku " + product.getSku() + " already was registered.");
         }
 
-        product.getInventory().setQuantity(getTotalInventoryQuantity(product));
-        product.setMarketable(marketable(product.getInventory().getQuantity()));
+        product.getInventory().quantity();
+        product.marketable();
 
         return productRepository.save(product);
     }
@@ -57,22 +69,10 @@ public class ProductService {
         productBySku.setName(product.getName());
         productBySku.setInventory(product.getInventory());
         productBySku.setMarketable(product.isMarketable());
-        productBySku.getInventory().setQuantity(getTotalInventoryQuantity(product));
-        productBySku.setMarketable(marketable(product.getInventory().getQuantity()));
+        productBySku.getInventory().quantity();
+        productBySku.marketable();
 
         return productRepository.save(productBySku);
-    }
-
-    public int getTotalInventoryQuantity(Product product) {
-        int totalQuantity = 0;
-        for (Warehouse warehouse : product.getInventory().getWarehouses()) {
-            totalQuantity += warehouse.getQuantity();
-        }
-        return totalQuantity;
-    }
-
-    public boolean marketable(int inventoryQuantity) {
-        return inventoryQuantity > 0;
     }
 
     private final ProductRepository productRepository;

@@ -1,6 +1,7 @@
 package br.com.blz.testjava.controller;
 
 import br.com.blz.testjava.model.Product;
+import br.com.blz.testjava.model.Warehouse;
 import br.com.blz.testjava.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/product")
 public class ProductController {
+
+    @PatchMapping(value = "/{sku}/addWarehouse")
+    @ResponseStatus(HttpStatus.OK)
+    public Product addWarehouse(
+            @PathVariable Integer sku,
+            @RequestBody Warehouse warehouse) {
+        return productService.addWarehouse(sku, warehouse);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,5 +59,4 @@ public class ProductController {
     }
 
     private final ProductService productService;
-
 }
