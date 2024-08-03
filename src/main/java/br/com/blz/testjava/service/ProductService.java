@@ -42,9 +42,6 @@ public class ProductService {
     }
 
     public void deleteProductBySky(Integer sku) {
-        if(productRepository.findProductBySku(sku) == null ){
-            throw new ProductNotFoundException("The product with sku " + sku + " not found.");
-        }
         productRepository.deleteProductBySku(sku);
     }
 
@@ -53,9 +50,6 @@ public class ProductService {
     }
 
     public Product findProductBySku(Integer sku) {
-        if(productRepository.findProductBySku(sku) == null ){
-            throw new ProductNotFoundException("The product with sku " + sku + " not found.");
-        }
         return productRepository.findProductBySku(sku);
     }
 
