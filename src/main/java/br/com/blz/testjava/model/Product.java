@@ -17,4 +17,13 @@ public class Product {
     private String name;
     private Inventory inventory;
     private boolean isMarketable;
+
+    public void addWarehouse(Warehouse warehouse) {
+        inventory.addWarehouse(warehouse);
+        marketable();
+    }
+
+    public void marketable() {
+        this.isMarketable = inventory.getQuantity() > 0;
+    }
 }

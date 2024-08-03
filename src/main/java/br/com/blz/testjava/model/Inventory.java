@@ -14,4 +14,22 @@ import java.util.List;
 public class Inventory {
     private int quantity;
     private List<Warehouse> warehouses;
+
+    void addWarehouse(Warehouse warehouse) {
+        this.warehouses.add(warehouse);
+        quantity();
+
+    }
+
+    public void quantity(){
+        this.quantity =  getQuantity();
+    }
+
+    public int getQuantity() {
+        int quantity = 0;
+        for (Warehouse warehouse : warehouses) {
+            quantity += warehouse.getQuantity();
+        }
+        return quantity;
+    }
 }
