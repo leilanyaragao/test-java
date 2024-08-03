@@ -18,6 +18,13 @@ public class Product {
     private Inventory inventory;
     private boolean isMarketable;
 
+    public Product(int sku, String name, Inventory inventory) {
+        this.sku = sku;
+        this.name = name;
+        this.inventory = inventory;
+        marketable();
+    }
+
     public void addWarehouse(Warehouse warehouse) {
         inventory.addWarehouse(warehouse);
         marketable();
