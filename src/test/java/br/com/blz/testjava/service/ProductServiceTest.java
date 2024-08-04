@@ -58,6 +58,8 @@ class ProductServiceTest {
         assertNotNull(productService.findAllProducts());
         productService.deleteAllProducts();
         assertEquals(new ArrayList<>() ,productService.findAllProducts());
+        assertEquals(27, productService.findProductBySku(43264).getInventory().getQuantity());
+
     }
 
     @Test
