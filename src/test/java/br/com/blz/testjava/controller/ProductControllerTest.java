@@ -34,6 +34,7 @@ class ProductControllerTest {
         assertEquals(2,productController.getProductBySku(43264).getInventory().getWarehouses().size());
         productController.addWarehouse(43264, new Warehouse("RJ", 12, "TYPE"));
         assertEquals(3,productController.getProductBySku(43264).getInventory().getWarehouses().size());
+        assertEquals(27, productController.getProductBySku(43264).getInventory().getQuantity());
     }
 
     @Test
